@@ -1,6 +1,5 @@
 package com.booksys.config;
 
-import io.netty.util.internal.StringUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

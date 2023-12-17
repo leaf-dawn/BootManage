@@ -35,9 +35,6 @@ public class AlbumController {
     @Autowired
     private BorrowrecordMapper borrowrecordMapper;
 
-    @Autowired
-    private  RedisUtil redisUtil;
-
     /**
      * 获取书目集合
      * @param title
@@ -50,44 +47,14 @@ public class AlbumController {
         /*声明返回值对象*/
         Map<String,Object> map=new HashMap<>();
         PageHelper.startPage(currentPage,10);
-        /*查询缓存*/
-        if(redisUtil.getValue("list")==null){
-            /*查询数据库*/
-            list=albumMapper.selectByTitle(title);
-            /*存入缓存*/
-            redisUtil.setValue("list",list);
+        /*查询数据库*/
+        list=albumMapper.selectByTitle(title);
 
-            /*将list存入map返回*/
-            PageInfo<Album> pageInfo=new PageInfo<>(list);
-            map.put("pageInfo",pageInfo);
-            map.put("albums",list);
-            return map;
-        }else{
-            /*将缓存放入list*/
-            List<Album> redisUtilValue=(List<Album>) redisUtil.getValue("list");
-
-            /*查询某本书籍*/
-            if(title!=""){
-                //TODO
-                for(int i=0;i<redisUtilValue.size();i++){
-                    if(redisUtilValue.get(i).getTitle().equals(title)){
-                        list.add(redisUtilValue.get(i));
-                    }
-                }
-
-                /*将list存入map返回*/
-                PageInfo<Album> pageInfo=new PageInfo<>(list);
-                map.put("pageInfo",pageInfo);
-            }else{
-
-                list=redisUtilValue;
-                /*将list存入map返回*/
-                PageInfo<Album> pageInfo=new PageInfo<>(list);
-                map.put("pageInfo",pageInfo);
-            }
-            map.put("albums",list);
-            return map;
-        }
+        /*将list存入map返回*/
+        PageInfo<Album> pageInfo=new PageInfo<>(list);
+        map.put("pageInfo",pageInfo);
+        map.put("albums",list);
+        return map;
     }
 
     /**
