@@ -196,7 +196,10 @@ export default {
               condi: that.formItem2.condi,
             },
             {
-              emulateJSON: true
+              emulateJSON: true,
+              headers: {
+                'token': window.localStorage.getItem('token')
+              }
             }
           ).then(function (res) {
             console.log(res.data.status)

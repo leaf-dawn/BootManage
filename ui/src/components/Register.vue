@@ -131,6 +131,9 @@ export default {
               this.$Message.error(res.data.message)
               this.loading = false
             }
+          }, function() {
+            this.$Message.error('网络错误!')
+            this.loading = false
           })
         } else {
           this.loading = false

@@ -272,13 +272,7 @@
             ).then(function (res) {
               console.log(res.data.status)
               if(res.data.status=='ok'){
-                //that.$Message.success('新增成功')
-                that.$Notice.config({
-                  top: 50,
-                  duration: 3,
-                  title: '通知',
-                  desc: '新添书籍成功!'
-                })
+                that.$Message.success('新增成功')
                 that.formInline.account=''
                 that.formItem2.title=''
                 that.formItem2.author=''

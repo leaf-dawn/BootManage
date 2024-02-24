@@ -128,6 +128,9 @@ export default {
                 this.$Message.error('账号或密码有误！')
                 this.loading = false
               }
+            }, function() {
+              this.$Message.error('网络错误!')
+              this.loading = false
             })
           } else {
             that.$Message.error('请填写正确的验证码!')
