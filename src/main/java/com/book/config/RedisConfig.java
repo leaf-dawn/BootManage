@@ -9,10 +9,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  *
- * @author Ni runfeng
- * @description Redis的配置类
- * @email 2570034697@qq.com
- * @date 2021/8/2 22:30
+ * @author 李嘉劲
  */
 @Configuration
 public class RedisConfig {

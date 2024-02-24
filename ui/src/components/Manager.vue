@@ -4,12 +4,11 @@
       <Col span="5" class="layout-menu-left">
       <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']">
         <div class="layout-logo-left">
-          <h2 style="color:white;">图书馆</h2>
+          <img class="icon" src="../assets/schoolBadge.png"><h1 class="book_text">广理图书馆</h1>
         </div>
         <Submenu name="1">
           <template slot="title">
-            <Icon type="ios-navigate"></Icon>
-            欢迎你，图书管理员:{{msg}}
+            欢迎您，图书管理员:{{msg}}
           </template>
           <MenuItem name="1-1" @click.native="lookBook"><span>图书管理</span></MenuItem>
           <MenuItem name="1-2" @click.native="lookRecord"><span>借阅记录</span></MenuItem>
@@ -109,9 +108,18 @@
     background: #464c5b;
   }
   .layout-logo-left{
-    width: 90%;
-    height: 30px;
-    margin: 15px auto;
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+  }
+  .icon {
+    height: 50px;
+    width: 50px;
+  }
+  .book_text {
+    color: white;
   }
   Button{
     color:white;

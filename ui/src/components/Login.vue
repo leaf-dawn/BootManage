@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <Form ref="formItem" :model="formItem" :rules="ruleItem" :label-width="80">
+  <div class="container">
+    <Form class="loginForm" ref="formItem" :model="formItem" :rules="ruleItem" :label-width="80">
       <Row>
         <Col :xs="23" :sm="23" :md="23" :lg="23">
         <h2>{{msg}}</h2>
@@ -158,8 +158,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .hello{
-    margin: auto;
+  .container{
+    position : absolute;
+    top: 0px;
+    width : 100%;
+    height : 100%;
+    background-image: url('../assets/bk.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  
+  .loginForm {
+    position: relative;
+    top: 20%;
+    background-color: aliceblue;
   }
   h2{
     color:#0e4683;

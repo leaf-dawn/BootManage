@@ -15,7 +15,7 @@ public interface AlbumMapper extends MyMapper<Album> {
      * @return
      */
     @Select("<script>"+
-            "select * from t_album"+
+            "select * from album"+
             "<where>"+
             "title like concat('%',concat(#{title},'%'))"+
             "</where>"+
@@ -36,7 +36,7 @@ public interface AlbumMapper extends MyMapper<Album> {
     })
     List<Album> selectByTitle(@Param("title") String title);
 
-    @Select("select * from t_album where aid=#{aid}")
+    @Select("select * from album where aid=#{aid}")
     @Results({
             @Result(id=true,column="aid",property = "aid"),
             @Result(column = "title",property = "title"),

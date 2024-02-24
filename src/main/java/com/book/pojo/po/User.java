@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Accessors(chain = true)
-@Table(name = "t_reader")
-public class Reader {
+@Table(name = "user")
+public class User {
     // 用户id
     @Id
     @Column(name = "rid")
@@ -98,10 +98,10 @@ public class Reader {
         this.condi = condi;
     }
 
-    public Reader() {
+    public User() {
     }
 
-    public Reader(String account, String password, String name, String sex, String time, int condi) {
+    public User(String account, String password, String name, String sex, String time, int condi) {
         this.account = account;
         this.password = password;
         this.name = name;

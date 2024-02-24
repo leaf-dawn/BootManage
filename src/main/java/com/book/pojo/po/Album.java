@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Accessors(chain = true)
-@Table(name = "t_album")
+@Table(name = "album")
 public class Album {
     @Id
     @Column(name = "aid")

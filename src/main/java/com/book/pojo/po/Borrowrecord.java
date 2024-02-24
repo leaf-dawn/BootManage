@@ -9,7 +9,7 @@ import javax.persistence.Transient;
 
 
 @Accessors(chain = true)
-@Table(name = "t_borrowrecord")
+@Table(name = "borrowrecord")
 public class Borrowrecord {
     @Id
     @Column(name = "bid")
@@ -29,7 +29,7 @@ public class Borrowrecord {
     @Column(name = "inttime")
     private String inttime;
     @Transient
-    private Reader reader;
+    private User user;
     @Transient
     private Album album;
     @Transient
@@ -70,8 +70,8 @@ public class Borrowrecord {
         this.inttime = inttime;
     }
 
-    public void setReader(Reader reader) {
-        this.reader = reader;
+    public void setReader(User user) {
+        this.user = user;
     }
 
     public void setAlbum(Album album) {
@@ -114,8 +114,8 @@ public class Borrowrecord {
         return inttime;
     }
 
-    public Reader getReader() {
-        return reader;
+    public User getReader() {
+        return user;
     }
 
     public Album getAlbum() {

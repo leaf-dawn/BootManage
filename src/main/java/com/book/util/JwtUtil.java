@@ -1,6 +1,6 @@
 package com.book.util;
 
-import com.book.pojo.po.Reader;
+import com.book.pojo.po.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -27,10 +27,10 @@ public abstract class JwtUtil {
      * @param user
      * @return
      */
-    public static String buildTokenByUser(Reader reader) {
+    public static String buildTokenByUser(User user) {
         return Jwts.builder()
-                .setSubject(String.valueOf(reader.getRid()))
-                .claim("user", reader)
+                .setSubject(String.valueOf(user.getRid()))
+                .claim("user", user)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRED_TIME))
                 //设置签名使用的签名算法和签名使用的秘钥
@@ -44,7 +44,7 @@ public abstract class JwtUtil {
      * @return
      * @throws Exception
      */
-    public static Reader getCurrentUser(String token) {
+    public static User getCurrentUser(String token) {
         return getCurrentUser(getBody(token));
     }
 
@@ -63,8 +63,8 @@ public abstract class JwtUtil {
      * @param claims
      * @return
      */
-    public static Reader getCurrentUser(Claims claims) {
-        return JSONObject.parseObject(JSONObject.toJSONString(claims.get("user")), Reader.class);
+    public static User getCurrentUser(Claims claims) {
+        return JSONObject.parseObject(JSONObject.toJSONString(claims.get("user")), User.class);
     }
 
     /**

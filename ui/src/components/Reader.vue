@@ -4,11 +4,10 @@
       <Col span="5" class="layout-menu-left">
       <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']">
         <div class="layout-logo-left">
-          <h2 style="color:white;">图书馆</h2>
+          <img class="icon" src="../assets/schoolBadge.png"><h1 class="book_text">广理图书馆</h1>
         </div>
         <Submenu name="1">
           <template slot="title">
-            <Icon type="ios-navigate"></Icon>
             欢迎你，{{msg}}同学
           </template>
           <MenuItem name="1-1" @click.native="searchBook"><span>搜索书籍</span></MenuItem>
@@ -130,9 +129,18 @@
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
   }
   .layout-logo-left{
-    width: 90%;
-    height: 30px;
-    margin: 15px auto;
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+  }
+  .icon {
+    height: 50px;
+    width: 50px;
+  }
+  .book_text {
+    color: white;
   }
   Button{
     color:white;

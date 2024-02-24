@@ -1,8 +1,8 @@
 package com.book.service;
 
 
-import com.book.mapper.ReaderMapper;
-import com.book.pojo.po.Reader;
+import com.book.mapper.UserMapper;
+import com.book.pojo.po.User;
 import com.book.util.DateTimeUtil;
 import com.book.util.JwtUtil;
 import com.book.util.MD5Util;
@@ -23,7 +23,7 @@ import java.util.Objects;
 @Service
 public class UserService {
     @Autowired
-    private ReaderMapper readerMapper;
+    private UserMapper userMapper;
 
 
     /**
@@ -35,25 +35,25 @@ public class UserService {
     public Map<String, Object> login(String account, String password){
         Map<String,Object> map=new HashMap<>();
         // 读取账号
-        Reader reader=readerMapper.selectWholeByAccount(account);
-        if (Objects.isNull(reader)) {
+        User user= userMapper.selectWholeByAccount(account);
+        if (Objects.isNull(user)) {
             map.put("status","failed");
             return map;
         }
-        boolean success = MD5Util.compare(reader.getPassword(), password + reader.getSalt());
+        boolean success = MD5Util.compare(user.getPassword(), password + user.getSalt());
         if (success) {
-            reader.setPassword("");
-            reader.setSalt("");
+            user.setPassword("");
+            user.setSalt("");
             // 生成token
-            map.put("loginUser",reader);
-            if(reader.getCondi()==0){
+            map.put("loginUser",user);
+            if(user.getCondi()==0){
                 map.put("condi",0);
-            }else if(reader.getCondi()==1){
+            }else if(user.getCondi()==1){
                 map.put("condi",1);
             }else{
                 map.put("condi",2);
             }
-            map.put("token", JwtUtil.buildTokenByUser(reader));
+            map.put("token", JwtUtil.buildTokenByUser(user));
             map.put("status","ok");
             return map;
         }
@@ -71,18 +71,18 @@ public class UserService {
      */
     public Map<String, Object> register(String account, String name, String password, String sex, int condi){
         Map<String,Object> map=new HashMap<>();
-        List<Reader> list = readerMapper.selectByAccount(account);
+        List<User> list = userMapper.selectByAccount(account);
         if (!list.isEmpty()) {
             map.put("message", "account is exist");
             map.put("status", "failed");
             return map;
         }
-        Reader reader = new Reader(account,password,name,sex, DateTimeUtil.getDate(),condi);
-        reader.setSalt(RandomUtil.generateRandomNumber(9));
-        reader.setPassword(MD5Util.MD5(reader.getPassword() + reader.getSalt()));
+        User user = new User(account,password,name,sex, DateTimeUtil.getDate(),condi);
+        user.setSalt(RandomUtil.generateRandomNumber(9));
+        user.setPassword(MD5Util.MD5(user.getPassword() + user.getSalt()));
         /*插入用户*/
         try {
-            readerMapper.insert(reader);
+            userMapper.insert(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,8 +98,8 @@ public class UserService {
      */
     public Map<String,Object> updateRole(String account, int condi){
         Map<String,Object> map=new HashMap<>();
-        Reader reader=readerMapper.selectWholeByAccount(account);
-        if(reader==null){
+        User user= userMapper.selectWholeByAccount(account);
+        if(user==null){
             //不存在该用户
             map.put("message", "不存在该用户");
             map.put("status","failed");
@@ -107,7 +107,7 @@ public class UserService {
         //获取id，根据id修改权限
         try {
             //修改成功
-            readerMapper.update(reader.getRid(),condi);
+            userMapper.update(user.getRid(),condi);
             map.put("message", "修改成功");
             map.put("status","ok");
         } catch (Exception e) {
@@ -125,8 +125,8 @@ public class UserService {
     public Map<String,Object> getAllReaders(String account,int currentPage){
         Map<String,Object> map=new HashMap<>();
         PageHelper.startPage(currentPage,10);
-        List<Reader> list=readerMapper.selectByAccount(account);
-        PageInfo<Reader> pageInfo=new PageInfo<>(list);
+        List<User> list= userMapper.selectByAccount(account);
+        PageInfo<User> pageInfo=new PageInfo<>(list);
         map.put("readers",list);
         map.put("pageInfo",pageInfo);
         return map;
@@ -144,7 +144,7 @@ public class UserService {
         /*1.声明返回结果*/
         Map<String,Object> map=new HashMap<>();
         /*2.判断是否有重复*/
-        if(readerMapper.selectByAccount(account).size()!=0){
+        if(userMapper.selectByAccount(account).size()!=0){
             /*2.1.重复，返回失败*/
             map.put("status","no");
         }else{
@@ -152,8 +152,8 @@ public class UserService {
             String password="123456";
             //当前注册时间
             String time=DateTimeUtil.getDate();
-            Reader reader=new Reader(account,password,name,sex,time,condi);
-            readerMapper.insert(reader);
+            User user=new User(account,password,name,sex,time,condi);
+            userMapper.insert(user);
             //返回状态码
             map.put("status","ok");
         }

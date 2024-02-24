@@ -4,8 +4,8 @@ import com.book.constants.RoleConstant;
 import com.book.mapper.BorrowrecordMapper;
 import com.book.mapper.SubalbumMapper;
 import com.book.pojo.po.Borrowrecord;
-import com.book.pojo.po.Reader;
 import com.book.pojo.po.Subalbum;
+import com.book.pojo.po.User;
 import com.book.util.CurrentUserInfo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -33,12 +33,12 @@ public class BorrowRecordService {
      * @return
      */
     public Map<String,Object> getBorrowRecords(int currentPage){
-        Reader reader = CurrentUserInfo.get();
+        User user = CurrentUserInfo.get();
         Map<String,Object> map=new HashMap<>();
         PageHelper.startPage(currentPage,10);
         // 如果account为空可以获取所有记录，所以判断用户是否为管理员，如果为管理员的话将账号设置为空
-        String account = reader.getAccount();
-        if (reader.getCondi() == RoleConstant.MANAGER) {
+        String account = user.getAccount();
+        if (user.getCondi() == RoleConstant.MANAGER) {
             account = "";
         }
         List<Borrowrecord> list=borrowrecordMapper.selectAllInfoByRaccount(account);

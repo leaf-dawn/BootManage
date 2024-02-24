@@ -9,7 +9,7 @@ import javax.persistence.Transient;
 
 
 @Accessors(chain = true)
-@Table(name = "t_subalbum")
+@Table(name = "subalbum")
 public class Subalbum {
     @Id
     @Column(name = "sid")

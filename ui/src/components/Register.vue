@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <Form ref="formItem" :model="formItem" :rules="ruleItem" :label-width="80">
+  <div class="container">
+    <Form class="loginForm" ref="formItem" :model="formItem" :rules="ruleItem" :label-width="80">
       <Row>
         <Col :xs="23" :sm="23" :md="23" :lg="23">
         <h2>{{msg}}</h2>
@@ -22,9 +22,11 @@
       </Row>
       <Row>
         <Col :xs="23" :sm="23" :md="23" :lg="23">
-        <FormItem prop="sex" label="性别">
-            <input type="radio" value="男" v-model="sex"><label>男</label>
-            <input type="radio" value="女" v-model="sex"><label>女</label>
+        <FormItem prop="sex" label="性别" >
+            <dev style="position: absolute; left: 20px;">
+              <input type="radio" value="男" v-model="sex" style="margin-left: 5px;"><label>男</label>
+              <input type="radio" value="女" v-model="sex" style="margin-left: 5px;"><label>女</label>
+            </dev>
         </FormItem>
         </Col>
       </Row>
@@ -126,7 +128,6 @@ export default {
               this.$Message.success('注冊成功!')
               this.$router.replace({path: '/'})
             } else {
-              console.log("aaa")
               this.$Message.error(res.data.message)
               this.loading = false
             }
@@ -145,8 +146,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .hello{
-    margin: auto;
+  .container{
+    position : absolute;
+    top: 0px;
+    width : 100%;
+    height : 100%;
+    background-image: url('../assets/bk.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  .loginForm {
+    position: relative;
+    top: 10%;
+    background-color: aliceblue;
   }
   h2{
     color:#0e4683;

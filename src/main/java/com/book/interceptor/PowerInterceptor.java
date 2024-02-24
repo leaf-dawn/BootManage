@@ -1,7 +1,7 @@
 package com.book.interceptor;
 
 import com.book.constants.RoleConstant;
-import com.book.pojo.po.Reader;
+import com.book.pojo.po.User;
 import com.book.util.CurrentUserInfo;
 import io.swagger.models.HttpMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -43,15 +43,15 @@ public class PowerInterceptor implements HandlerInterceptor {
             return true;
         }
         // 获取当前用户和请求路径
-        Reader reader = CurrentUserInfo.get();
+        User user = CurrentUserInfo.get();
         String path = request.getRequestURI();
 
         boolean pass = false;
-        if (reader.getCondi() == RoleConstant.READER) {
+        if (user.getCondi() == RoleConstant.READER) {
             pass = isPathAllowed(path, readerPaths);
-        } else if (reader.getCondi() == RoleConstant.MANAGER) {
+        } else if (user.getCondi() == RoleConstant.MANAGER) {
             pass = isPathAllowed(path, managerPaths) || isPathAllowed(path, readerPaths);
-        } else if (reader.getCondi() == RoleConstant.SUPER_MANAGER) {
+        } else if (user.getCondi() == RoleConstant.SUPER_MANAGER) {
             // 超级管理员可以访问所有路径
             pass = true;
         }

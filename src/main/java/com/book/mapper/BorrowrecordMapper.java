@@ -16,7 +16,7 @@ public interface BorrowrecordMapper extends MyMapper<Borrowrecord> {
      *@date: 22:12 2018/1/10
      **/
     @Select("<script> "+
-            "select * from t_borrowrecord"+
+            "select * from borrowrecord"+
             " <where> "+
             " raccount like concat('%',concat(#{raccount},'%'))"+
             " </where> "+
@@ -30,8 +30,8 @@ public interface BorrowrecordMapper extends MyMapper<Borrowrecord> {
             @Result(column = "sid",property = "sid"),
             @Result(column = "time",property = "time"),
             @Result(column = "inttime",property = "inttime"),
-            @Result(column="rid",property = "reader",
-                    one=@One(select="com.book.mapper.ReaderMapper.selectById")
+            @Result(column="rid",property = "user",
+                    one=@One(select="com.book.mapper.UserMapper.selectById")
             ),
             @Result(column="aid",property = "album",
                     one=@One(select="com.book.mapper.AlbumMapper.selectById")
@@ -43,7 +43,7 @@ public interface BorrowrecordMapper extends MyMapper<Borrowrecord> {
     List<Borrowrecord> selectAllInfoByRaccount(@Param("raccount") String raccount);
 
     @Select("<script> "+
-            "select * from t_borrowrecord"+
+            "select * from borrowrecord"+
             " <where> "+
             " rid=#{rid}"+
             " </where> "+

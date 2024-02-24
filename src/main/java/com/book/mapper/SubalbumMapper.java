@@ -11,12 +11,12 @@ import java.util.List;
 @Mapper
 @Repository
 public interface SubalbumMapper extends MyMapper<Subalbum> {
-    @Select("select * from t_subalbum where aid=#{aid}")
+    @Select("select * from subalbum where aid=#{aid}")
     List<Subalbum> selectByAid(@Param("aid") int aid);
 
-    @Select("select * from t_subalbum where sid=#{sid}")
+    @Select("select * from subalbum where sid=#{sid}")
     Subalbum selectById(@Param("sid") int sid);
 
-    @Select("select * from t_subalbum where number=#{number}")
+    @Select("select * from subalbum where number=#{number}")
     Subalbum selectByNumber(@Param("number") String number);
 }
